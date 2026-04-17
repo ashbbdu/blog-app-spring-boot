@@ -16,7 +16,7 @@ public class BlogEntity {
     private String first_name;
     private String last_name;
     private String email;
-    private String password; // will be adding custom validator
+    private String password; // will be adding custom validator => done
     private String role;
     private Boolean active;
     private LocalDateTime createdAt;

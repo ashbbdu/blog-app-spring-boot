@@ -14,9 +14,7 @@ public class BlogDTO {
 
     @NotBlank
     @Size(min = 3 , max = 10, message = "First name should be more than 3 character and should be lesser or equal to 10 !")
-
     private String first_name;
-
     @NotBlank
     @Size(min = 3 , max = 10, message = "Last name should be more than 3 character and should be lesser or equal to 10 !")
 

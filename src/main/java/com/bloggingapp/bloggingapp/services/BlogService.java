@@ -3,8 +3,11 @@ package com.bloggingapp.bloggingapp.services;
 import com.bloggingapp.bloggingapp.dtos.BlogDTO;
 import com.bloggingapp.bloggingapp.entities.BlogEntity;
 import com.bloggingapp.bloggingapp.repositories.BlogRepository;
+import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -33,5 +36,26 @@ public class BlogService {
     public List<BlogDTO> getBlogs() {
         List<BlogEntity> blogs = blogRepository.findAll();
         return blogs.stream().map(e -> modelMapper.map(e , BlogDTO.class)).collect(Collectors.toList());
+    }
+
+
+    public BlogDTO getBlogById(Long blogId) {
+        BlogEntity blog = blogRepository.findById(blogId).orElse(null);
+        return modelMapper.map(blog , BlogDTO.class);
+
+    }
+
+    public BlogDTO updateBlog(Long blogId, BlogDTO blogData) {
+        BlogEntity blog = blogRepository.findById(blogId).orElse(null);
+        if (blog == null) {
+            return null; // safe exit
+        }
+
+        blog.setFirst_name(blogData.getFirst_name());
+        blog.setLast_name(blogData.getLast_name());
+        blog.setPassword(blogData.getPassword());
+
+        BlogEntity updatedBlog = blogRepository.save(blog);
+        return modelMapper.map(updatedBlog , BlogDTO.class);
     }
 }
