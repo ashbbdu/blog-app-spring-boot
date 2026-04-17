@@ -1,7 +1,7 @@
 package com.bloggingapp.bloggingapp.dtos;
 
 import com.bloggingapp.bloggingapp.annotations.PasswordValidation;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.bloggingapp.bloggingapp.annotations.RoleValidation;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
@@ -25,11 +25,11 @@ public class BlogDTO {
     private String email;
 
     @NotBlank(message = "Password is required !")
-
+    @PasswordValidation
     private String password;
 
     @NotBlank(message = "Role is required !")
-    @PasswordValidation()
+    @RoleValidation()
     private String role;
     private boolean active;
     private LocalDateTime createdAt;

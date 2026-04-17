@@ -6,18 +6,9 @@ import jakarta.validation.ConstraintValidatorContext;
 import java.util.List;
 
 public class PasswordValidator implements ConstraintValidator<PasswordValidation , String> {
-
-
     @Override
-    public boolean isValid(String inputRole, ConstraintValidatorContext constraintValidatorContext) {
-        List<String> roles = List.of("User" , "Author");
-        if(roles.contains(inputRole)) {
-            return true;
-        }
-        return false;
-
-//        or
-
-//        return roles.contains(inputRole);
+    public boolean isValid(String inputPassword, ConstraintValidatorContext constraintValidatorContext) {
+        String regex = "^(?=.*[A-Z])(?=.*[a-z])(?=.*[!@#$%^&*]).{8,16}$";
+        return inputPassword != null && inputPassword.matches(regex);
     }
 }
