@@ -20,6 +20,7 @@ public class BlogDTO {
 
     private String last_name;
     @Email(message = "Invalid Email !")
+    @NotNull(message = "Email is required field !")
     private String email;
 
     @NotBlank(message = "Password is required !")

@@ -28,9 +28,12 @@ public class BlogService {
 //    private ModelMapper modelMapper;
 
 
-    public void addBlog (BlogDTO blog) {
+    public ResponseEntity<BlogDTO> addBlog (BlogDTO blog) {
         BlogEntity newBlog = modelMapper.map(blog , BlogEntity.class);
-        blogRepository.save(newBlog);
+
+        BlogEntity savedBlog = blogRepository.save(newBlog);
+        BlogDTO nb =  modelMapper.map(savedBlog , BlogDTO.class);
+        return ResponseEntity.ok(nb);
     }
 
     public List<BlogDTO> getBlogs() {
@@ -41,6 +44,9 @@ public class BlogService {
 
     public BlogDTO getBlogById(Long blogId) {
         BlogEntity blog = blogRepository.findById(blogId).orElse(null);
+        if(blog == null) {
+            throw new IllegalArgumentException("Blog with this id does not exist");
+        }
         return modelMapper.map(blog , BlogDTO.class);
 
     }
@@ -48,7 +54,8 @@ public class BlogService {
     public BlogDTO updateBlog(Long blogId, BlogDTO blogData) {
         BlogEntity blog = blogRepository.findById(blogId).orElse(null);
         if (blog == null) {
-            return null; // safe exit
+//            return null; // safe exit
+            throw new IllegalArgumentException("Blog with this id does not exist");
         }
 
         blog.setFirst_name(blogData.getFirst_name());

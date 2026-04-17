@@ -27,8 +27,8 @@ public class BlogController {
     }
 
     @PostMapping()
-    public void addBlog (@RequestBody @Valid BlogDTO blog) {
-        blogService.addBlog(blog);
+    public ResponseEntity<BlogDTO> addBlog (@RequestBody @Valid BlogDTO blog) {
+       return blogService.addBlog(blog);
     }
 
     @GetMapping(path = "/{blogId}")
